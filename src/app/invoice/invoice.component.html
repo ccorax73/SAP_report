@@ -1,0 +1,66 @@
+<table mat-table [dataSource]="dataSource"  matSort  class="mat-elevation-z8" >
+    <ng-container matColumnDef="Datum">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by number"> Date </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,datumpont(element.Datum)]"></td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Megrendelo_nev">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
+        <td mat-cell  *matCellDef="let element" [appHighlight]="[textSearch,element.Megrendelo_nev]">  </td>
+        <td mat-footer-cell *matFooterCellDef class="vastag"> Total </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Szamla">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,wo_zero(element.Szamla)]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Szfajta">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice type </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,wo_zero(element.Szfajta)]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="NettoErtek">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Value</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.NettoErtek | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright" *ngFor="let p of penznem_groupby">
+           {{p.NettoErtek| number:'1.0-2'| removecomma }}
+         </div>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Penznem">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Currency </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.Penznem]">  </td>
+        <td mat-footer-cell *matFooterCellDef class="vastag"><div class="aligntoright" *ngFor="let p of penznem_groupby">
+          {{p.Penznem}}
+        </div> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Szoveg">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Text </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.Szoveg]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Mennyiseg">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.Mennyiseg | number:'1.0-0'| removecomma]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="BME">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> BUM </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.BME]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'redhighlight': ('RE' == row.Szfajta) || (row.NettoErtek < 0) }"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns" [hidden]="loading"></tr>
+
+</table>
+<mat-icon [class.rotate]="loading" *ngIf="loading">refresh</mat-icon>

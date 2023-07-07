@@ -1,0 +1,61 @@
+<table mat-table [dataSource]="dataSource"  matSort  class="mat-elevation-z8" >
+    <ng-container matColumnDef="Acsoport">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by number"> Project </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.Acsoport]"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Lerakodohely">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by number"> Unloading point </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.Lerakodohely]"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Rendeles_szama">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order#</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,wo_zero(element.Rendeles_szama)]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Inditas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date from </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,datumpont(element.Inditas)]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Vege">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date to</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,datumpont(element.Vege)]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Aszam">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Material# </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,wo_zero(element.Aszam)]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Megnev">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let element" class="vastag" [ngStyle]="{'white-space': 'nowrap'}" [appHighlight]="[textSearch,element.Megnev]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="RendeltM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ordered Qty</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.RendeltM| number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="VisszaJelM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Confirmed Qty</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.VisszaJelM | number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NyitottM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Open Qty</th>
+        <td mat-cell class="aligntoright vastag" *matCellDef="let element" [appHighlight]="[textSearch,(element.RendeltM-element.VisszaJelM) | number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BME">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> BUM </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.BME]">  </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-icon [class.rotate]="loading" *ngIf="loading">refresh</mat-icon>

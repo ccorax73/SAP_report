@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.rotate {
+  animation: rotation 2s infinite linear;
+  font-size: 100px;
+  height: 100px ;
+  width: 100px;
+  color: teal;
+
+  margin-top: 10%;
+  margin-left: 50%
+
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

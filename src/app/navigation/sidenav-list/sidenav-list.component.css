@@ -1,0 +1,23 @@
+.menu-button {
+    padding-left: 16px;
+    .mat-icon {
+        vertical-align: middle;
+        padding-right: 16px;
+    }
+}
+
+.menu-button:hover{
+      .mat-icon,span{
+        color: teal !important;
+    }
+}
+
+.mat-mdc-list-base {
+  --mdc-list-list-item-label-text-size: 14px;
+  --mdc-list-list-item-one-line-container-height: 32px;
+}
+
+::ng-deep  .mat-icon {
+  padding-right: 12px  !important;
+
+}

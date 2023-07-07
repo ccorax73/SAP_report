@@ -1,0 +1,82 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th{
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: 3px;
+  border-top: 1px;
+  font-size: 110%;
+  position: sticky;
+  top: 0px;
+  color: white;
+  border-radius: 7px;
+}
+
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 3px;
+
+}
+
+.aligntoright{
+  text-align: right;
+}
+
+tr:nth-child(even) {
+  background-color: #ecf1f0;
+  height:25px;
+  font-size: small;
+}
+
+tr:nth-child(odd) {
+height:25px;
+font-size: small;
+}
+
+.mat-mdc-header-row {
+  background-color : teal;
+  opacity: 1;
+  text-shadow: 5px;
+}
+
+.mat-mdc-form-field {
+  font-size: 16px;
+  width: 50%;
+}
+
+.vastag{
+  font-weight: bold;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #fff;
+}
+
+.mat-icon{
+  padding-right: 0px !important;
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+  font-size: 100px;
+  height: 100px ;
+  width: 100px;
+  color: teal;
+
+  margin-top: 10%;
+  margin-left: 50%
+
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

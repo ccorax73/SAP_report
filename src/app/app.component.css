@@ -1,0 +1,13 @@
+mat-sidenav-container,mat-sidenav,mat-sidenav-content{
+height: calc(100vh - 64px)
+
+}
+
+mat-sidenav{
+  /*   max-height: fit-content; */
+    width: 250px;
+}
+
+main{
+    padding: 10px;
+}

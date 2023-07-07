@@ -1,0 +1,127 @@
+
+<table mat-table [dataSource]="dataSource"   class="mat-elevation-z8" [hidden]="showsum" #firstTable  #firstTableSort="matSort" matSort>
+    <ng-container matColumnDef="Aszam">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header sortActionDescription="Sort by number"> Material# </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,this.listservice.wo_zero(element.Aszam)]"></td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Megnev">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+        <td mat-cell  *matCellDef="let element" [ngStyle]="{'white-space': 'nowrap'}" [appHighlight]="[textSearch,element.Megnev]">  </td>
+        <td mat-footer-cell *matFooterCellDef class="vastag"> Total </td>
+    </ng-container>
+
+    <ng-container matColumnDef="KulsoACS">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  <button mat-icon-button (click)="pivot()">
+            <mat-icon>summarize</mat-icon>
+        </button> Ext.Mat Group </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.KulsoACS]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Csnev">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Group </th>
+        <td mat-cell *matCellDef="let element" [ngStyle]="{'white-space': 'nowrap'}" [appHighlight]="[textSearch,element.Csnev]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Acsoport">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mat.type </th>
+        <td mat-cell [ngStyle]="{'white-space': 'nowrap'}" *matCellDef="let element" [appHighlight]="[textSearch,element.Acsoport]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="SzabadFelhk">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Unrestricted stock </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.SzabadFelhk| number:'1.0-3'| removecomma]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="ZaroltK">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Blocked stock </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.ZaroltK| number:'1.0-3'| removecomma]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="BermunkaK">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Subcontract. stock </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.BermunkaK| number:'1.0-3'| removecomma]">  </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="BME">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>BUM</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.BME]">  </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SzabadE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Value unres.</th>
+        <td mat-cell class="aligntoright"  [matTooltip]="'Mozgóátlag ár: '+((element.MozgoAr/element.Aregyseg) | number:'1.0-3'| removecomma) + '\n Standard ár: '+ (element.StandardA/element.Aregyseg | number:'1.0-3'| removecomma)"  *matCellDef="let element" [appHighlight]="[textSearch,element.SzabadE | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+           {{szabadTotal() | number:'1.0-2'| removecomma }}
+         </div>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ZaroltE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Value blocked</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.ZaroltE | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+           {{zaroltTotal()| number:'1.0-2'| removecomma }}
+         </div>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BermunkaE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Value subcontr.</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.BermunkaE | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+           {{bermunkaTotal()| number:'1.0-2'| removecomma }}
+         </div>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="HUF">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Curr.</th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.HUF]">  </td>
+        <td mat-footer-cell *matFooterCellDef class="vastag"> EUR</td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns" [hidden]="loading"></tr>
+
+</table>
+
+<table mat-table [dataSource]="pivotdataSource"    [hidden]="!showsum"  #pivotTable  #pivotTableSort="matSort" matSort >
+
+    <ng-container matColumnDef="KulsoACS">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  <button mat-icon-button (click)="pivot()">
+            <mat-icon>summarize</mat-icon>
+        </button><span class="__aligntomiddle"> Ext.Mat group </span> </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.KulsoACS]" ></td>
+        <td mat-footer-cell *matFooterCellDef class="vastag"> Összesen</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Ertek">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" >{{element.Ertek | number:'1.0-2'| removecomma }}</td>
+        <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (pivotdataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+          {{pivotTotal() | number:'1.0-2'| removecomma }}
+        </div>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="HUF">
+        <th mat-header-cell *matHeaderCellDef> - </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element"  >EUR</td>
+        <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (pivotdataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+           HUF
+        </div>  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedpivotColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedpivotColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedpivotColumns" [hidden]="loading"></tr>
+  </table>
+
+<mat-icon [class.rotate]="loading" *ngIf="loading" >refresh</mat-icon> 

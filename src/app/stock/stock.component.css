@@ -1,0 +1,79 @@
+table {
+  /* width: 100%;*/
+  border-collapse: collapse;
+}
+
+th{
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: 3px;
+  border-top: 1px;
+  font-size: 110%;
+  position: sticky;
+  top: 0px;
+  color: white;
+  border-radius: 7px;
+}
+
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 3px;
+
+}
+
+.aligntoright{
+  text-align: right;
+}
+
+.aligntomiddle{
+  display: inline-block;
+  vertical-align: middle;
+  padding-bottom: 14px;
+/*
+  text-align: center;
+  display: flex;
+  align-items: center; */
+}
+
+tr:nth-child(even) {
+  background-color: #ecf1f0;
+  height:25px;
+}
+
+tr:nth-child(odd) {
+height:25px;
+}
+
+.mat-mdc-header-row {
+  background-color : teal;
+  opacity: 1;
+  text-shadow: 5px;
+}
+
+.redhighlight {
+  background-color: #FFCCCB !important;
+}
+
+
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 50%;
+}
+
+.vastag{
+  font-weight: bold;
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: #fff;
+}
+
+.mdc-data-table__table{
+  min-width:10%;
+}
+
+.mat-icon{
+  padding-right: 0px !important;
+}

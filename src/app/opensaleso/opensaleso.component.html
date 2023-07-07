@@ -1,0 +1,71 @@
+<table mat-table [dataSource]="dataSource"  matSort  class="mat-elevation-z8" >
+
+    <ng-container matColumnDef="Megrendelo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+        <td mat-cell  *matCellDef="let element" [ngStyle]="{'white-space': 'nowrap'}" [appHighlight]="[textSearch,element.Megrendelo]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Mkod">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer#</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,wo_zero(element.Mkod)]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Rendeles">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header > Order </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.Rendeles]"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Tetel">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header > Item </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.Tetel]"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Datum">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header > Delivery date </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,datumpont(element.Datum)]"></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Rogzitette">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Recorded</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.Rogzitette]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Anyagszam">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Material# </th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,wo_zero(element.Anyagszam)]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Megnev">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Desc. </th>
+        <td mat-cell *matCellDef="let element" class="vastag" [ngStyle]="{'white-space': 'nowrap'}" [appHighlight]="[textSearch,element.Megnev]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="RendeltM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ordered qty</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.RendeltM| number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="KiszallM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delivered qty</th>
+        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.KiszallM | number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NyitottM">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Open qty</th>
+        <td mat-cell class="aligntoright vastag" *matCellDef="let element" [appHighlight]="[textSearch,element.NyitottM | number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Ertek">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+        <td mat-cell class="aligntoright vastag" [matTooltip]="'Ear: '+element.Ear + '  Áregység: '+element.Aregyseg" [ngStyle]="{'white-space': 'nowrap'}" *matCellDef="let element" [appHighlight]="[textSearch,element.Ertek| number:'1.0-0'| removecomma]">  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Penznem">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Currency </th>
+        <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.Penznem]">  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-icon [class.rotate]="loading" *ngIf="loading">refresh</mat-icon>
