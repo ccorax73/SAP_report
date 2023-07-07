@@ -19,7 +19,8 @@ export class ListerService {
 
 
   constructor(public http: HttpClient) { }
-    baseUrl: string = 'http://sccad/riportok_fem/';
+    // update query baseURL
+    baseUrl: string = 'http://xxxx/query/';
     tol: string = undefined;
     ig: string = undefined;
     title = new BehaviorSubject({settitle:'SAP reports', showCalendar:true});
