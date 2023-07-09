@@ -1,10 +1,8 @@
 import { Component,Input, Output, EventEmitter,ViewChild,ElementRef} from '@angular/core';
 import { MatDatepickerModule,MatDatepickerInputEvent, MatDatepicker } from '@angular/material/datepicker';
 import { ListerService } from '../../lister.service';
-import { MatInputModule} from '@angular/material/input';
-import { MatNativeDateModule,NativeDateAdapter } from '@angular/material/core';
+import { NativeDateAdapter } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { DateAdapter } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 
@@ -18,7 +16,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
 
 
   override format(date: Date, displayFormat: any): string {
-    const monthAsString =date.toLocaleString('hu-HU', { month: 'long' })
+    const monthAsString = date.toLocaleString('hu-HU', { month: 'long' })
     const year = date.getFullYear();
     return year +  '.' + monthAsString ;
   }
@@ -38,14 +36,14 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
 
 export class HeaderComponent {
   title="";
-  showCalendar:boolean;
+  showCalendar:boolean=true;
 
     constructor(private listService: ListerService, private dateAdapter: DateAdapter<any>) {
       this.dateAdapter.setLocale('hu-HU');
       this.monthAndYear = new Date();
     }
 
-    @ViewChild('input', { static: true }) FilterElement: ElementRef;
+    @ViewChild('input', { static: true }) FilterElement : ElementRef<any>= {} as ElementRef;
 
     @Output() public sidenavToggle = new EventEmitter();
 

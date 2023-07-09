@@ -4,6 +4,11 @@ import { Invoice } from '../db_interface';
 import { MatSort,Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+interface penznemgby{
+  Penznem:string;
+  NettoErtek: number;
+}
+
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -12,7 +17,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class InvoiceComponent {
   dataSource = new MatTableDataSource<Invoice>;
   public loading: boolean=true;
-  public penznem_groupby = [];
+  
+  public penznem_groupby:penznemgby[] = [];
 
   constructor(private listservice: ListerService) {
   }
@@ -22,14 +28,14 @@ export class InvoiceComponent {
   @ViewChild(MatSort) sort !: MatSort;
 
   sum_refresh():void{
-    this.penznem_groupby=[];
-    this.dataSource.filteredData.forEach(function (a:Invoice) {
-      if (this[a.Penznem]===undefined ) {
-        this[a.Penznem] = { Penznem: a.Penznem, NettoErtek: Number(a.NettoErtek) };
-        this.push(this[a.Penznem]);
+    this.penznem_groupby = [];
+    this.dataSource.filteredData.forEach( (a:Invoice) => {
+      if (this[a.Penznem as keyof typeof this]===undefined ) {
+        (this[a.Penznem as keyof typeof this] as penznemgby) = { Penznem: a.Penznem, NettoErtek: Number(a.NettoErtek) };
+        this.penznem_groupby.push(this[a.Penznem as keyof typeof this] as penznemgby);
       }
       else{
-      this[a.Penznem].NettoErtek += (a.Szfajta=='RE')?-1*Number(a.NettoErtek):Number(a.NettoErtek);}
+        (this[a.Penznem as keyof typeof this] as penznemgby).NettoErtek += (a.Szfajta=='RE')?-1*Number(a.NettoErtek):Number(a.NettoErtek);}
     }, this.penznem_groupby);
   }
 
@@ -41,12 +47,8 @@ export class InvoiceComponent {
         this.dataSource.sort = this.sort;
         this.loading =false;
         this.sum_refresh();
-
-
       }
     )
-
-
   }
 
   ngOnInit(): void {
@@ -65,16 +67,10 @@ export class InvoiceComponent {
  //https://stackoverflow.com/questions/31131490/how-to-subscribe-to-an-event-on-a-service-in-angular2
     this.listservice.aDatumvalt.subscribe( // ide már nem jön adat
       (d : Date) =>{
-        /*let dat_eleje:string =d.getFullYear()+String(d.getMonth()+1).padStart(2, '0');
-        let lastday:Date = new Date(d.getFullYear(), d.getMonth() + 1, 0);
-        let tol:string = dat_eleje+"01";
-        let ig:string = dat_eleje+lastday.getDate();*/
-        this.dataSource = new MatTableDataSource<Invoice>(null);
+        this.dataSource = new MatTableDataSource<Invoice>([]);
         this.textSearch = "";
         this.loading =true;
-        //console.log("Invoice__monthChanged:  "+dat_eleje+"01  "+dat_eleje + lastday.getDate());
         this.table_refresh();
-
       }
     )
 

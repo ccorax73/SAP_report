@@ -4,13 +4,10 @@
         <mat-icon >menu</mat-icon>
     </button>
 
-    <!-- <span class="example-spacer">{{fejlec}}</span>
-appearance="fill"
-   -->
     <span class="example-spacer" >{{title}}
       <span [hidden]="showCalendar" >
         <mat-form-field >
-        <mat-label>Hónap</mat-label>
+        <mat-label>Month</mat-label>
         <input matInput readonly
                         [(ngModel)]="monthAndYear"
                         [matDatepicker]="picker"

@@ -21,8 +21,9 @@ export class ListerService {
   constructor(public http: HttpClient) { }
     // update query baseURL
     baseUrl: string = 'http://xxxx/query/';
-    tol: string = undefined;
-    ig: string = undefined;
+    private _jsonURL = 'assets/';
+    tol: string ='' ;
+    ig: string ='' ;
     title = new BehaviorSubject({settitle:'SAP reports', showCalendar:true});
 
 
@@ -30,9 +31,10 @@ export class ListerService {
      this.title.next(paramtitle);
     }
 
-    getOpenPO() {
+    getOpenPO(){
       this.setTitle ({settitle:"Open production orders", showCalendar:false});
-      return this.http.get<Open_po[]>(this.baseUrl+'query_open_po.php');
+      //return this.http.get<Open_po[]>(this.baseUrl+'query_open_po.php');
+      return this.http.get(this._jsonURL+'openpo.json');
     }
 
     getStock() {
@@ -55,8 +57,11 @@ export class ListerService {
 
     getIncoming(): Observable<Incoming[]> {
       this.setTitle ({settitle:"Incoming deliveries", showCalendar:true});
-      let sqlstring: string  = (!this.tol)?this.baseUrl+'query_incoming.php':this.baseUrl+'query_incoming.php?tol='+this.tol+'&ig='+this.ig;
-      return this.http.get<Incoming[]>(sqlstring);
+      //let sqlstring: string  = (this.tol=='')?this.baseUrl+'query_incoming.php':this.baseUrl+'query_incoming.php?tol='+this.tol+'&ig='+this.ig;
+      //return this.http.get<Incoming[]>(sqlstring);
+      //let sqlstring: string  = (this.tol=='')?this.baseUrl+'query_incoming.php':this.baseUrl+'query_incoming.php?tol='+this.tol+'&ig='+this.ig;
+      return this.http.get<Incoming[]>(this._jsonURL+'incoming.json');
+
     }
 
 

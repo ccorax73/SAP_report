@@ -25,7 +25,8 @@ export class IncomingComponent {
   table_refresh():void{
     this.listservice.getIncoming().subscribe(
        (result:any) => {
-        this.dataSource = new MatTableDataSource<Invoice>(result.data);
+        //this.dataSource = new MatTableDataSource<Invoice>(result.data);
+        this.dataSource = new MatTableDataSource<Invoice>(result);
         this.dataSource.data.splice(this.dataSource.data.length-1, 1);
         this.dataSource.sort = this.sort;
         this.loading =false;
@@ -48,7 +49,7 @@ export class IncomingComponent {
  //https://stackoverflow.com/questions/31131490/how-to-subscribe-to-an-event-on-a-service-in-angular2
     this.listservice.aDatumvalt.subscribe( // ide már nem jön adat
       (d : Date) =>{
-        this.dataSource = new MatTableDataSource<Invoice>(null);
+        this.dataSource = new MatTableDataSource<Invoice>(undefined);
         this.textSearch = "";
         this.loading =true;
         this.table_refresh();

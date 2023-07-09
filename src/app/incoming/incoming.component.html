@@ -6,7 +6,7 @@
 
     <ng-container matColumnDef="Konyveles_ideje">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-        <td mat-cell class="aligntoright vastag" [matTooltip]="'Bizonylatszám: '+element.Anyagbiz"  *matCellDef="let element" [appHighlight]="[textSearch,this.listservice.datumpont(element.Konyveles_ideje)]">  </td>
+        <td mat-cell class="aligntoright vastag" [matTooltip]="'Doc#: '+element.Anyagbiz"  *matCellDef="let element" [appHighlight]="[textSearch,this.listservice.datumpont(element.Konyveles_ideje)]">  </td>
     </ng-container>
 
     <ng-container matColumnDef="Anyagszam">

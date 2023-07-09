@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Scintilla SAP riport';
   events: string[] = [];
-  opened: boolean;
+  opened: boolean =false;
 }

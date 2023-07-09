@@ -66,7 +66,7 @@ export interface Stock{
     ZaroltK?: string;
     BermunkaK?: string;
     BME?: string;
-    KulsoACS?:string;
+    KulsoACS:string;
     SzabadE: number;
     ZaroltE: number;
     BermunkaE: number;
@@ -79,7 +79,6 @@ export interface Stock{
 }
 
 export interface pivotStock{
-    KulsoACS?:string;
-    Ertek?: number;
-
+    KulsoACS:string;
+    Ertek: number;
 }

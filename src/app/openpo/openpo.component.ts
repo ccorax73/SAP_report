@@ -24,11 +24,14 @@ export class OpenpoComponent implements OnInit{
   ngOnInit(): void {
     this.listservice.getOpenPO().subscribe(
       (result: any) => {
-        this.dataSource = new MatTableDataSource<Open_po>(result.data);
+        //console.log(result);
+        //this.dataSource = new MatTableDataSource<Open_po>(result.data);
+        this.dataSource = new MatTableDataSource<Open_po>(result);
         this.dataSource.data.splice(this.dataSource.data.length-1, 1);
         this.dataSource.sort = this.sort;
         this.loading =false;
       }
+      ,err => console.log(err)
     )
 
     this.listservice.aFilterEvent.subscribe(

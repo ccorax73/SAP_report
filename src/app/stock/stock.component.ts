@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component,  ViewChild } from '@angular/core';
 import { ListerService } from '../lister.service';
 import { Stock, pivotStock } from '../db_interface';
 import { MatSort,Sort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class StockComponent {
   dataSource = new MatTableDataSource<Stock>;
-  pivotdataSource =new MatTableDataSource<pivotStock>;
+  pivotdataSource = new MatTableDataSource<pivotStock>;
   //filteredpivotdataSource : { KulsoACS : string, Ertek: number }[];
   public loading: boolean = true;
   public showsum: boolean = false;
@@ -51,18 +51,18 @@ export class StockComponent {
         this.dataSource = new MatTableDataSource<Stock>(result.data);
         this.dataSource.data.splice(this.dataSource.data.length-1, 1);
         this.dataSource.sort = this.firstTableSort;
-        var mapdataSource = this.dataSource.data.map(row =>({KulsoACS: row.KulsoACS, Ertek: +row.SzabadE + +row.ZaroltE + +row.BermunkaE}));
-        var pivotSource = [];
-        mapdataSource.reduce( (total, currentobject) => {
-          if (!total[currentobject.KulsoACS]) {
-            total[currentobject.KulsoACS] = { KulsoACS: currentobject.KulsoACS, Ertek: 0 };
-            pivotSource.push(total[currentobject.KulsoACS])
+        var mapdataSource = this.dataSource.data.map(row =>({KulsoACS: row.KulsoACS , Ertek: +row.SzabadE + +row.ZaroltE + +row.BermunkaE}));
+        var pivotSource :pivotStock[]  = [];
+        mapdataSource.reduce( (total , currentobject ) => {
+          if (!total[currentobject.KulsoACS as keyof typeof total]) {
+            (total[currentobject.KulsoACS as keyof typeof total] as pivotStock) = { KulsoACS: currentobject.KulsoACS, Ertek: 0 };
+            pivotSource.push(total[currentobject.KulsoACS as keyof typeof total])
           }
-          total[currentobject.KulsoACS].Ertek += currentobject.Ertek;
+          (total[currentobject.KulsoACS as keyof typeof total] as pivotStock).Ertek += currentobject.Ertek;
           return total;
         },{});
         pivotSource.sort((a,b) => (a.KulsoACS > b.KulsoACS) ? 1 : ((b.KulsoACS > a.KulsoACS) ? -1 : 0))
-        this.pivotdataSource =  new MatTableDataSource<Stock>(pivotSource);
+        this.pivotdataSource =  new MatTableDataSource<pivotStock>(pivotSource);
         this.pivotdataSource.sort = this.pivotTableSort;
         this.loading =false;
       }
