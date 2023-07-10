@@ -1,5 +1,5 @@
 table {
-  /* width: 100%;*/
+  /*width: 100%; */
   border-collapse: collapse;
 }
 
@@ -39,10 +39,12 @@ td {
 tr:nth-child(even) {
   background-color: #ecf1f0;
   height:25px;
+  font-size: small;
 }
 
 tr:nth-child(odd) {
 height:25px;
+font-size: small;
 }
 
 .mat-mdc-header-row {

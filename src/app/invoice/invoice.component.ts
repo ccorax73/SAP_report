@@ -28,21 +28,36 @@ export class InvoiceComponent {
   @ViewChild(MatSort) sort !: MatSort;
 
   sum_refresh():void{
-    this.penznem_groupby = [];
-    this.dataSource.filteredData.forEach( (a:Invoice) => {
-      if (this[a.Penznem as keyof typeof this]===undefined ) {
-        (this[a.Penznem as keyof typeof this] as penznemgby) = { Penznem: a.Penznem, NettoErtek: Number(a.NettoErtek) };
-        this.penznem_groupby.push(this[a.Penznem as keyof typeof this] as penznemgby);
+    
+    let resultarray: Array<penznemgby> = [];
+    this.dataSource.filteredData.forEach( (a:Invoice) => { 
+      if (resultarray.filter(item => (item.Penznem == a.Penznem)).length == 0 ) {
+        resultarray.push({ Penznem: a.Penznem, NettoErtek: +(a.NettoErtek) });
       }
       else{
-        (this[a.Penznem as keyof typeof this] as penznemgby).NettoErtek += (a.Szfajta=='RE')?-1*Number(a.NettoErtek):Number(a.NettoErtek);}
-    }, this.penznem_groupby);
+        resultarray.filter(item => (item.Penznem == a.Penznem))[0].NettoErtek += (a.Szfajta=='RE')?-1*Number(a.NettoErtek):Number(a.NettoErtek);
+      }
+    });
+    this.penznem_groupby  = resultarray;
+
   }
+
+ /* sum_refresh__jo():void{
+    this.penznem_groupby=[];
+    this.dataSource.filteredData.forEach(function (a:Invoice) {
+      if (this[a.Penznem]===undefined ) {
+        this[a.Penznem] = { Penznem: a.Penznem, NettoErtek: Number(a.NettoErtek) };
+        this.push(this[a.Penznem]);
+      }
+      else{
+      this[a.Penznem].NettoErtek += (a.Szfajta=='RE')?-1*Number(a.NettoErtek):Number(a.NettoErtek);}
+    }, this.penznem_groupby);
+  }*/
 
   table_refresh():void{
     this.listservice.getInvoice().subscribe(
        (result:any) => {        
-        this.dataSource = new MatTableDataSource<Invoice>(result.data);
+        this.dataSource = new MatTableDataSource<Invoice>(result);
         this.dataSource.data.splice(this.dataSource.data.length-1, 1);
         this.dataSource.sort = this.sort;
         this.loading =false;

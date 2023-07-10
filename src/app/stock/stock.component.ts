@@ -30,7 +30,7 @@ export class StockComponent {
   }
 
   public szabadTotal(){
-    return this.dataSource.filteredData.reduce((accum, curr) => accum + Number(curr.SzabadE), 0);
+    return this.dataSource.filteredData.reduce((accum, curr) => accum + +curr.SzabadE, 0);
   }
 
   public zaroltTotal(){
@@ -42,13 +42,13 @@ export class StockComponent {
   }
 
   public pivotTotal(){
-    return this.pivotdataSource.filteredData.reduce((accum, curr) => accum + Number(curr.Ertek), 0);
+    return this.pivotdataSource.filteredData.reduce((accum, curr) => accum + +curr.Ertek, 0);
   }
 
   table_refresh():void{
     this.listservice.getStock().subscribe(
        (result:any) => {
-        this.dataSource = new MatTableDataSource<Stock>(result.data);
+        this.dataSource = new MatTableDataSource<Stock>(result);
         this.dataSource.data.splice(this.dataSource.data.length-1, 1);
         this.dataSource.sort = this.firstTableSort;
         var mapdataSource = this.dataSource.data.map(row =>({KulsoACS: row.KulsoACS , Ertek: +row.SzabadE + +row.ZaroltE + +row.BermunkaE}));

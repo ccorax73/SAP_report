@@ -58,24 +58,24 @@
 
     <ng-container matColumnDef="SzabadE">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Value unres.</th>
-        <td mat-cell class="aligntoright"  [matTooltip]="'Mozgóátlag ár: '+((element.MozgoAr/element.Aregyseg) | number:'1.0-3'| removecomma) + '\n Standard ár: '+ (element.StandardA/element.Aregyseg | number:'1.0-3'| removecomma)"  *matCellDef="let element" [appHighlight]="[textSearch,element.SzabadE | number:'1.2-2'| removecomma ]">  </td>
-         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+        <td mat-cell class="aligntoright"  [ngStyle]="{'white-space': 'nowrap'}"  [matTooltip]="'Mozgóátlag ár: '+((element.MozgoAr/element.Aregyseg) | number:'1.0-3'| removecomma) + '\n Standard ár: '+ (element.StandardA/element.Aregyseg | number:'1.0-3'| removecomma)"  *matCellDef="let element" [appHighlight]="[textSearch,element.SzabadE | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag"  [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" [ngStyle]="{'white-space': 'nowrap'}" ><div [ngStyle]="{'white-space': 'nowrap'}"  class="aligntoright">
            {{szabadTotal() | number:'1.0-2'| removecomma }}
          </div>  </td>
     </ng-container>
 
     <ng-container matColumnDef="ZaroltE">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Value blocked</th>
-        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.ZaroltE | number:'1.2-2'| removecomma ]">  </td>
-         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+        <td mat-cell class="aligntoright" *matCellDef="let element" [ngStyle]="{'white-space': 'nowrap'}"  [appHighlight]="[textSearch,element.ZaroltE | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag"  [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div [ngStyle]="{'white-space': 'nowrap'}" class="aligntoright">
            {{zaroltTotal()| number:'1.0-2'| removecomma }}
          </div>  </td>
     </ng-container>
 
     <ng-container matColumnDef="BermunkaE">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Value subcontr.</th>
-        <td mat-cell class="aligntoright" *matCellDef="let element" [appHighlight]="[textSearch,element.BermunkaE | number:'1.2-2'| removecomma ]">  </td>
-         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div class="aligntoright">
+        <td mat-cell class="aligntoright" *matCellDef="let element" [ngStyle]="{'white-space': 'nowrap'}"  [appHighlight]="[textSearch,element.BermunkaE | number:'1.2-2'| removecomma ]">  </td>
+         <td mat-footer-cell *matFooterCellDef class="vastag" [ngStyle]="{'background-color': (dataSource.filter == '') ? null : 'yellow'}" ><div [ngStyle]="{'white-space': 'nowrap'}" class="aligntoright">
            {{bermunkaTotal()| number:'1.0-2'| removecomma }}
          </div>  </td>
     </ng-container>
@@ -100,7 +100,7 @@
             <mat-icon>summarize</mat-icon>
         </button><span class="__aligntomiddle"> Ext.Mat group </span> </th>
         <td mat-cell *matCellDef="let element" [appHighlight]="[textSearch,element.KulsoACS]" ></td>
-        <td mat-footer-cell *matFooterCellDef class="vastag"> Összesen</td>
+        <td mat-footer-cell *matFooterCellDef class="vastag"> Total</td>
     </ng-container>
 
     <ng-container matColumnDef="Ertek">

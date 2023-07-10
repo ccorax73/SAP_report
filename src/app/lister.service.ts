@@ -39,20 +39,21 @@ export class ListerService {
 
     getStock() {
       this.setTitle ({settitle:"Stock", showCalendar:false});
-      return this.http.get<Stock[]>(this.baseUrl+'query_stock.php');
+      //return this.http.get<Stock[]>(this.baseUrl+'query_stock.php');
+      return this.http.get(this._jsonURL+'stock.json');
     }
 
     getOpenSO() {
       this.setTitle ({settitle:"Open sales orders", showCalendar:false});
-      return this.http.get<Open_so[]>(this.baseUrl+'query_open_saleso.php');
+      //return this.http.get<Open_so[]>(this.baseUrl+'query_open_saleso.php');
+      return this.http.get(this._jsonURL+'open_saleso.json');
     }
 
-    getInvoice(): Observable<Invoice[]> {
+    getInvoice(): Observable<any> {
       this.setTitle ({settitle:"Invoices", showCalendar:true});
       let sqlstring: string  = (!this.tol)?this.baseUrl+'query_invoice.php':this.baseUrl+'query_invoice.php?tol='+this.tol+'&ig='+this.ig;
-      console.log("getinvoice ->" + sqlstring);
-
-      return this.http.get<Invoice[]>(sqlstring);
+    //  return this.http.get<Invoice[]>(sqlstring);
+      return this.http.get(this._jsonURL+'invoices.json');
     }
 
     getIncoming(): Observable<Incoming[]> {
