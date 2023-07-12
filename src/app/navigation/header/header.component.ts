@@ -16,7 +16,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
 
 
   override format(date: Date, displayFormat: any): string {
-    const monthAsString = date.toLocaleString('hu-HU', { month: 'long' })
+    const monthAsString = date.toLocaleString('en-GB', { month: 'long' })
     const year = date.getFullYear();
     return year +  '.' + monthAsString ;
   }
@@ -39,7 +39,7 @@ export class HeaderComponent {
   showCalendar:boolean=true;
 
     constructor(private listService: ListerService, private dateAdapter: DateAdapter<any>) {
-      this.dateAdapter.setLocale('hu-HU');
+      this.dateAdapter.setLocale('en-GB');
       this.monthAndYear = new Date();
     }
 
